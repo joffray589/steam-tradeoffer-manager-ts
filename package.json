@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/joffray589/steam-tradeoffer-manager-ts/issues"
   },
-  "homepage": "https://github.com/joffray589/steam-tradeoffer-manager-ts#readme"
+  "homepage": "https://github.com/joffray589/steam-tradeoffer-manager-ts#readme",
+
+  "dependencies": {
+    "@types/steamcommunity": "joffray589/steamcommunity-ts"
+  }
+
+
 }
