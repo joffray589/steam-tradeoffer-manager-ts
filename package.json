@@ -1,12 +1,12 @@
 {
-  "name": "@types/steamcommunity",
+  "name": "@types/steam-tradeoffer-manager",
   "version": "1.0.0",
   "description": "TypeScript definitions for DoctorMcKay steamcommunity (https://github.com/DoctorMcKay/node-steamcommunity)",
   "main": "",
   "scripts": { },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/joffray589/steamcommunity-ts.git"
+    "url": "git+https://github.com/joffray589/steam-tradeoffer-manager-ts.git"
   },
   "author": {
     "name": "Joffray Braga",
@@ -14,7 +14,7 @@
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/joffray589/steamcommunity-ts/issues"
+    "url": "https://github.com/joffray589/steam-tradeoffer-manager-ts/issues"
   },
-  "homepage": "https://github.com/joffray589/steamcommunity-ts#readme"
+  "homepage": "https://github.com/joffray589/steam-tradeoffer-manager-ts#readme"
 }
