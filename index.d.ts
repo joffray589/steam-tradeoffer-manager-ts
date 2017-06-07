@@ -313,6 +313,7 @@ declare class TradeOfferManager {
     parentalUnlock(pin: string, callback: (err: Error) => any);
 
     createOffer(partner: SteamID): TradeOfferManager.TradeOffer;
+    createOffer(tradeUrl: string): TradeOfferManager.TradeOffer;
 
     getOffer(id: string, callback: (err: Error, offer: TradeOfferManager.TradeOffer) => any);
 
