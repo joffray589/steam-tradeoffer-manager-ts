@@ -2,7 +2,103 @@
  *  node-steam-tradeoffer-manager typings : https://github.com/DoctorMcKay/node-steam-tradeoffer-manager
  */
 
+/**
+ * https://github.com/DoctorMcKay/node-steam-tradeoffer-manager/wiki/TradeOfferManager
+ */
+declare class TradeOfferManager {
+
+    pollInterval            : number;
+    cancelTime              : number;
+    pendingCancelTime       : number;
+    cancelOfferCount        : number;
+    cancelOfferCountMinAge  : number;
+    pollData                : any;
+    apiKey                  : string;
+    steamID                 : SteamID;
+
+    constructor(options: TradeOfferManager.Options);
+
+
+    on(event: 'newOffer',                   callback: (offer: TradeOfferManager.TradeOffer) => any);
+    on(event: 'sentOfferChanged',           callback: (offer: TradeOfferManager.TradeOffer, oldState: TradeOfferManager.ETradeOfferState) => any);
+    on(event: 'sentOfferCanceled',          callback: (offer: TradeOfferManager.TradeOffer, reason: string) => any);
+    on(event: 'sentPendingOfferCanceled',   callback: (offer: TradeOfferManager.TradeOffer) => any);
+    on(event: 'unknownOfferSent',           callback: (offer: TradeOfferManager.TradeOffer) => any);
+    on(event: 'receivedOfferChanged',       callback: (offer: TradeOfferManager.TradeOffer, oldState: TradeOfferManager.ETradeOfferState) => any);
+    on(event: 'pollFailure',                callback: (err: Error) => any);
+    on(event: 'pollSuccess',                callback: () => any);
+    on(event: 'pollData',                   callback: (pollData: any) => any);
+
+
+    on(event: string, callback: any);
+
+    setCookies(cookies: any);
+    setCookies(cookies: any, callback: (err: Error) => any);
+
+    shutdown();
+
+    parentalUnlock(pin: string);
+    parentalUnlock(pin: string, callback: (err: Error) => any);
+
+    createOffer(partner: SteamID): TradeOfferManager.TradeOffer;
+    createOffer(tradeUrl: string): TradeOfferManager.TradeOffer;
+
+    getOffer(id: string, callback: (err: Error, offer: TradeOfferManager.TradeOffer) => any);
+
+    getOffers(
+        filter: TradeOfferManager.EOfferFilter,
+        callback: (err: Error, sent: TradeOfferManager.TradeOffer[], received: TradeOfferManager.TradeOffer[] ) => any
+    );
+
+    getOffers(
+        filter: TradeOfferManager.EOfferFilter,
+        historicalCutoff: Date,
+        callback: (err: Error, sent: TradeOfferManager.TradeOffer[], received: TradeOfferManager.TradeOffer[] ) => any
+    );
+
+    loadInventory(
+        appid: string,
+        contextid: string,
+        tradableOnly: boolean,
+        callback: (err: Error, inventory: TradeOfferManager.EconItem[], currencies: TradeOfferManager.EconItem[]) => any
+    );
+
+    loadUserInventory(
+        userId: SteamID,
+        appid: string,
+        contextid: string,
+        tradableOnly: boolean,
+        callback: (err: Error, inventory: TradeOfferManager.EconItem[], currencies: TradeOfferManager.EconItem[]) => any
+    );
+
+    getOfferToken(callback: (err: Error, token: string) => any);
+
+    getEscrowDuration(
+        steamID: SteamID,
+        callback: (err: Error, daysTheirEscrow: number, daysMyEscrow: number) => any
+    );
+
+    getEscrowDuration(
+        steamID: SteamID,
+        token: string,
+        callback: (err: Error, daysTheirEscrow: number, daysMyEscrow: number) => any
+    );
+
+    getOffersContainingItems(
+        items: TradeOfferManager.EconItem[],
+        includeInactive: boolean,
+        callback: (err: Error, sent: TradeOfferManager.TradeOffer[], received: TradeOfferManager.TradeOffer[] ) => any
+    );
+
+    doPoll();
+
+}
+
 declare namespace TradeOfferManager {
+
+    /**
+     * https://github.com/DoctorMcKay/node-steam-tradeoffer-manager/blob/master/lib/classes/EconItem.js
+     */
     class EconItem {
         id                              : string;
         assetid                         : string;
@@ -272,99 +368,6 @@ declare namespace TradeOfferManager {
 
 }
 
-
-
-/**
- * https://github.com/DoctorMcKay/node-steam-tradeoffer-manager/wiki/TradeOfferManager
- */
-declare class TradeOfferManager {
-
-    pollInterval            : number;
-    cancelTime              : number;
-    pendingCancelTime       : number;
-    cancelOfferCount        : number;
-    cancelOfferCountMinAge  : number;
-    pollData                : any;
-    apiKey                  : string;
-    steamID                 : SteamID;
-
-    constructor(options: TradeOfferManager.Options);
-
-
-    on(event: 'newOffer',                   callback: (offer: TradeOfferManager.TradeOffer) => any);
-    on(event: 'sentOfferChanged',           callback: (offer: TradeOfferManager.TradeOffer, oldState: TradeOfferManager.ETradeOfferState) => any);
-    on(event: 'sentOfferCanceled',          callback: (offer: TradeOfferManager.TradeOffer, reason: string) => any);
-    on(event: 'sentPendingOfferCanceled',   callback: (offer: TradeOfferManager.TradeOffer) => any);
-    on(event: 'unknownOfferSent',           callback: (offer: TradeOfferManager.TradeOffer) => any);
-    on(event: 'receivedOfferChanged',       callback: (offer: TradeOfferManager.TradeOffer, oldState: TradeOfferManager.ETradeOfferState) => any);
-    on(event: 'pollFailure',                callback: (err: Error) => any);
-    on(event: 'pollSuccess',                callback: () => any);
-    on(event: 'pollData',                   callback: (pollData: any) => any);
-
-
-    on(event: string, callback: any);
-
-    setCookies(cookies: any);
-    setCookies(cookies: any, callback: (err: Error) => any);
-
-    shutdown();
-
-    parentalUnlock(pin: string);
-    parentalUnlock(pin: string, callback: (err: Error) => any);
-
-    createOffer(partner: SteamID): TradeOfferManager.TradeOffer;
-    createOffer(tradeUrl: string): TradeOfferManager.TradeOffer;
-
-    getOffer(id: string, callback: (err: Error, offer: TradeOfferManager.TradeOffer) => any);
-
-    getOffers(
-        filter: TradeOfferManager.EOfferFilter,
-        callback: (err: Error, sent: TradeOfferManager.TradeOffer[], received: TradeOfferManager.TradeOffer[] ) => any
-    );
-
-    getOffers(
-        filter: TradeOfferManager.EOfferFilter,
-        historicalCutoff: Date,
-        callback: (err: Error, sent: TradeOfferManager.TradeOffer[], received: TradeOfferManager.TradeOffer[] ) => any
-    );
-
-    loadInventory(
-        appid: string,
-        contextid: string,
-        tradableOnly: boolean,
-        callback: (err: Error, inventory: TradeOfferManager.EconItem[], currencies: TradeOfferManager.EconItem[]) => any
-    );
-
-    loadUserInventory(
-        userId: SteamID,
-        appid: string,
-        contextid: string,
-        tradableOnly: boolean,
-        callback: (err: Error, inventory: TradeOfferManager.EconItem[], currencies: TradeOfferManager.EconItem[]) => any
-    );
-
-    getOfferToken(callback: (err: Error, token: string) => any);
-
-    getEscrowDuration(
-        steamID: SteamID,
-        callback: (err: Error, daysTheirEscrow: number, daysMyEscrow: number) => any
-    );
-
-    getEscrowDuration(
-        steamID: SteamID,
-        token: string,
-        callback: (err: Error, daysTheirEscrow: number, daysMyEscrow: number) => any
-    );
-
-    getOffersContainingItems(
-        items: TradeOfferManager.EconItem[],
-        includeInactive: boolean,
-        callback: (err: Error, sent: TradeOfferManager.TradeOffer[], received: TradeOfferManager.TradeOffer[] ) => any
-    );
-
-    doPoll();
-
-}
 
 declare module "steam-tradeoffer-manager" {
     export  = TradeOfferManager;
