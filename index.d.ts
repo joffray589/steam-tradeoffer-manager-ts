@@ -2,9 +2,6 @@
  *  node-steam-tradeoffer-manager typings : https://github.com/DoctorMcKay/node-steam-tradeoffer-manager
  */
 
-import SteamCommunity from "steamcommunity";
-import SteamID from "steamid";
-
 /**
  * https://github.com/DoctorMcKay/node-steam-tradeoffer-manager/wiki/TradeOfferManager
  */
@@ -346,13 +343,15 @@ declare namespace TradeOfferManager {
     getReceivedItems(callback: (err: Error, items: EconItem[]) => void);
     getReceivedItems(getActions: boolean, callback: (err: Error, items: EconItem[]) => void);
 
-    getExchangeDetails(getDetailsIfFailed: boolean, callback: (err: Error, status: ETradeOfferState, tradeInitTime: Date, receivedItems: EconItem[], sentItems: EconItem[]) => void);
+    getExchangeDetails(
+      getDetailsIfFailed: boolean,
+      callback: (err: Error, status: ETradeOfferState, tradeInitTime: Date, receivedItems: EconItem[], sentItems: EconItem[]) => void
+    );
     getExchangeDetails(callback: (err: Error, status: ETradeOfferState, tradeInitTime: Date, receivedItems: EconItem[], sentItems: EconItem[]) => void);
 
     setMessage(message: string);
     setToken(token: string);
   }
-}
 
   /**
    * https://github.com/DoctorMcKay/node-steam-tradeoffer-manager/blob/master/resources/EOfferFilter.js
