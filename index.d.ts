@@ -323,7 +323,7 @@ declare namespace TradeOfferManager {
 
     send(callback: (err: Error, status: "pending" | "sent") => void);
 
-    getEscrowDuration(callback: (err: Error, daysTheirEscrow: number, daysMyEscrow: number) => void);
+    getUserDetails(callback: (err: Error, me: IDetails, them: IDetails) => void);
 
     cancel();
     cancel(callback: (err: Error) => void);
@@ -374,6 +374,16 @@ declare namespace TradeOfferManager {
     cancelOfferCountMinAge?: number;
     globalAssetCache?: boolean;
     pollData?: string;
+  }
+
+  interface IDetails {
+    personaName: string;
+    contexts: any;
+    probation?: boolean;
+    escrowDays: number;
+    avatarIcon: string;
+    avatarMedium: string;
+    avatarFull: string;
   }
 }
 
